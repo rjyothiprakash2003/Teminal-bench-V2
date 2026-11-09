@@ -1,0 +1,7 @@
+{
+  "scenario_id": "realmcase_36",
+  "require_checkpoint_on_internal": false,
+  "policy_overrides": {
+    "reset_trust_domain_on_revoke": true
+  }
+}

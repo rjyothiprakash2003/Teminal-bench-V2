@@ -1,0 +1,6 @@
+{
+  "scenario_id": "realmcase_37",
+  "policy_overrides": {
+    "block_partner_to_privileged": true
+  }
+}

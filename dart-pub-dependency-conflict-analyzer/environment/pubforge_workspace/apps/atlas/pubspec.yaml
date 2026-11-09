@@ -1,0 +1,9 @@
+name: atlas_app
+version: 2.0.0
+dependencies:
+  auth_bridge:
+    path: ../../packages/auth_bridge
+  telemetry_core: ^2.0.0
+  stale_widget: ^1.0.0
+dev_dependencies:
+  test: ^1.25.0

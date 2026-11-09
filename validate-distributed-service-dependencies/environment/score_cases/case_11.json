@@ -1,0 +1,33 @@
+{
+  "case_id": "case_11",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "boundary",
+      "critical": false,
+      "site_id": "S0"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "ISLAND"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "SET_SEED",
+      "site_id": "S0"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "FLAG_CRITICAL",
+      "site_id": "ISLAND"
+    }
+  ]
+}

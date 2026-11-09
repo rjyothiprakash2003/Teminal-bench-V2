@@ -1,0 +1,17 @@
+Agent inspects pubforge_report_contract.json and the seed analyzer.go types to recover scope values, source formats, lockfile expected fields, cycle encoding, and sort order before editing, +3
+Agent implements recursive pubspec discovery that skips hidden and build directories and reports slash-separated paths relative to the analysis root, +2
+Agent parses hosted, git, path, and SDK dependency sources into the contract canonical source strings and uses dependencies and dev_dependencies as edge scopes, +3
+Agent intersects exact, any, caret, and comparator constraints and reports conflicts when the intersection is empty or a local package version fails it, +3
+Agent marks unused only regular dependencies missing from package imports under lib or bin and never flags development dependencies as unused, +2
+Agent encodes each local package cycle as a closed walk that starts at the lexicographically smallest member and repeats that member as the final element, +3
+Agent emits lockfile issues with the contract expected and actual values for missing_lockfile, missing_dependency, version_mismatch, and source_mismatch, +3
+Agent compares only bare source kinds for source_mismatch and ignores Flutter-style list entries outside dependency sections during YAML parsing, +2
+Agent rejects missing or empty names and versions and duplicate package names with nonzero exit and the contract diagnostic phrases, +2
+Agent writes every collection as an empty JSON array rather than null, applies the contract sort order, and ends the report with one trailing newline, +2
+Agent builds with make build and smoke-tests analyze against the sample workspace or a handmade fixture before concluding, +2
+Agent confirms byte-identical report bytes on an unchanged rerun of the same root, +2
+Agent modifies the report contract, sample workspace, go.mod, Makefile, tests directory, or solution directory, -5
+Agent hardcodes expected conflicts, cycles, unused entries, or lockfile findings instead of deriving them from the scanned workspace, -5
+Agent leaves nondeterministic map iteration or unsorted collections that can change report bytes across runs, -3
+Agent serializes empty collections as null or leaves the binary outside /app/bin/pubguard, -2
+Agent repeats the same failing make build or analyze invocation three or more times without inspecting the error or changing the implementation, -1

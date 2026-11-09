@@ -1,0 +1,67 @@
+{
+  "case_id": "case_12",
+  "soft_dampen_pct": 100,
+  "min_confidence": 10,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "M"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "Z"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "ORPH"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "M",
+      "source_id": "Z",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "Z",
+      "source_id": "M",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "Z",
+      "source_id": "M",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "M",
+      "source_id": "Z",
+      "channel": "heat",
+      "weight": 1
+    }
+  ]
+}

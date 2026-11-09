@@ -1,0 +1,5 @@
+{
+  "scenario_id": "realmcase_48",
+  "require_checkpoint_on_internal": false,
+  "block_partner_to_privileged": true
+}

@@ -1,0 +1,18 @@
+Agent inspects /app/scorelane/pairing_class_contract.json for soft-hard weights combo evidence stack mixed tax finding_id and live-graph rules before editing kernels, +2
+Agent inspects buggy Go under /app/featmesh /app/fanout and /app/limitmath to locate inverted cycle versus live graphs soft_dampen zero rejection and depth bugs, +2
+Agent builds CYCLE_DETECTED on every observed edge including weight zero while MUTUAL_COUPLING and fanout reverse BFS use only weight greater than zero edges, +5
+Agent sets finding_id to case_id::entity_id::NNNN where NNNN is the finding event_seq zero-padded to four digits not an ordinal counter and omits kind, +3
+Agent accepts soft_dampen_pct zero as a valid policy_overrides value keeps hard feature weights full and still applies mixed tax when hard and soft findings coexist, +3
+Agent awards evidence stack only for at least three distinct hard kinds not raw hard finding count and adds CHANNEL_DRIFT plus WEIGHT_STARVE combo before mixed tax, +3
+Agent omits MUTUAL_COUPLING only when both mutual sites appear in a CYCLE_DETECTED detail and still emits mutual when only one site shares a cycle, +3
+Agent computes DEPTH_EXCEEDED on required=true declared couplings only ignores required=false optional edges and emits only when depth is strictly greater than max_chain_depth, +3
+Agent honors policy_overrides for max_fanout_depth and max_chain_depth and trips FANOUT_DEPTH only when max hop is strictly greater than max_fanout_depth, +3
+Agent sorts map keys before ranging so pairing_class_report.json stays byte-identical across unchanged make run reruns, +2
+Agent runs make build and make run producing /app/build/scorectl and /app/build/pairing_class_report.json from the repaired Go sources, +2
+Agent keeps Makefile score_cases scorelane and go.mod byte-immutable and confines edits to featmesh fanout limitmath scoregate and build outputs, +2
+Agent hardcodes confidence status findings or corrections instead of deriving them from replay scoring and graph analysis, -5
+Agent modifies score_cases fixtures scorelane contract go.mod or Makefile or operates outside /app, -5
+Agent embeds kind in finding_id or uses a 1-based ordinal counter for the NNNN segment, -3
+Agent dampens hard feature weights or rejects soft_dampen_pct zero so soft-only or mixed-tax cases score incorrectly, -3
+Agent relies on network access wall-clock time or non-deterministic map iteration for report contents, -2
+Agent repeats the same failing make or go build command at least three times without inspecting the error or changing the implementation, -1

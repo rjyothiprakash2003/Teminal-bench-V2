@@ -1,0 +1,7 @@
+name: auth_bridge
+version: 1.4.0
+dependencies:
+  crypto_kernel: ">=1.0.0 <2.0.0"
+  telemetry_core:
+    hosted: https://mirror.internal.example
+    version: ^1.8.0

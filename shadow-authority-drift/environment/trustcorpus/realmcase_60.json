@@ -1,0 +1,7 @@
+{
+  "scenario_id": "realmcase_60",
+  "require_checkpoint_on_internal": false,
+  "policy_overrides": {
+    "audit_partner_privileged_asymmetry": true
+  }
+}

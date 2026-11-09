@@ -1,0 +1,103 @@
+{
+  "case_id": "case_08",
+  "soft_dampen_pct": 100,
+  "min_confidence": 10,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "M"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "N"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "P"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "M",
+      "source_id": "N",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "N",
+      "source_id": "M",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "M",
+      "source_id": "P",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "P",
+      "source_id": "M",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 8,
+      "event_id": "e08",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "M",
+      "source_id": "N",
+      "channel": "heat",
+      "weight": 0
+    },
+    {
+      "seq": 9,
+      "event_id": "e09",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "N",
+      "source_id": "M",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 10,
+      "event_id": "e11",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "P",
+      "source_id": "M",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 10,
+      "event_id": "e10",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "M",
+      "source_id": "P",
+      "channel": "heat",
+      "weight": 1
+    }
+  ]
+}

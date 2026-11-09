@@ -1,0 +1,10 @@
+.DS_Store
+*.zip
+.ruff_cache/
+**/__pycache__/
+*.pyc
+.idea/
+.vscode/
+*.swp
+.AppleDouble
+.LSOverride

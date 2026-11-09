@@ -1,0 +1,215 @@
+{
+  "version": 2,
+  "output_path": "/app/build/active_learning_report.json",
+  "binary_path": "/app/build/alsctl",
+  "manifest_path": "/app/label_suites/manifest.json",
+  "suite_count": 20,
+  "root_keys_only": [
+    "suites"
+  ],
+  "suite_keys": [
+    "suite_id",
+    "status",
+    "duplicate_events_skipped",
+    "strategy",
+    "labels_used",
+    "annotation_efficiency_bps",
+    "convergence_round",
+    "final_accuracy_bps",
+    "compute_cost_milli",
+    "confidence_lo_bps",
+    "samples",
+    "findings"
+  ],
+  "sample_keys": [
+    "sample_id",
+    "labeled",
+    "uncertainty",
+    "diversity",
+    "score_round"
+  ],
+  "finding_keys": [
+    "finding_id",
+    "entity_id",
+    "kind",
+    "event_seq",
+    "detail"
+  ],
+  "status_values": [
+    "ACCEPTED",
+    "REJECTED"
+  ],
+  "status_rule": "ACCEPTED when findings empty else REJECTED",
+  "strategy_values": [
+    "uncertainty",
+    "diversity",
+    "hybrid"
+  ],
+  "finding_kinds": [
+    "DUPLICATE_SAMPLE",
+    "UNKNOWN_STRATEGY",
+    "HYBRID_WEIGHT_INVALID",
+    "BUDGET_OVERRUN",
+    "LABEL_LEAK",
+    "POOL_EXHAUSTED",
+    "CHANNEL_SKEW",
+    "STALE_SCORE",
+    "ORPHAN_SCORE",
+    "BATCH_UNDERFILL",
+    "DUPLICATE_PICK",
+    "CONVERGENCE_STALL",
+    "COST_OVERFLOW",
+    "CONFIDENCE_UNDERFLOW",
+    "SCORE_MISSING",
+    "STRATEGY_SWITCH",
+    "ROUND_REGRESSION",
+    "ROUND_GAP",
+    "PROBE_REGRESSION",
+    "POST_LABEL_SCORE"
+  ],
+  "encoding": {
+    "compact": true,
+    "no_space_after_colon_or_comma": true,
+    "trailing_newline": true,
+    "use_empty_arrays_not_null": true,
+    "determinism": "byte-identical /app/build/active_learning_report.json across repeated make run on unchanged fixtures"
+  },
+  "report_structure": {
+    "suite_order": "/app/label_suites/manifest.json suites array suite_01 through suite_20",
+    "samples_sort": "ascending by sample_id",
+    "findings_sort": "ascending by finding_id lexicographically"
+  },
+  "scenario_defaults": {
+    "batch_size": 2,
+    "label_budget": 10,
+    "max_score_age_rounds": 1,
+    "uncertainty_weight": 60,
+    "diversity_weight": 40,
+    "target_accuracy_bps": 8000,
+    "stall_delta_bps": 50,
+    "stall_rounds": 2,
+    "min_confidence_n": 3,
+    "cost_per_label_milli": 100,
+    "cost_per_score_milli": 5,
+    "confidence_z2": 4,
+    "max_compute_cost_milli": 100000,
+    "max_channel_skew_rounds": 2
+  },
+  "policy_resolution": "defaults then top-level suite fields then policy_overrides via ResolveSuite including max_score_age_rounds uncertainty_weight diversity_weight and max_channel_skew_rounds",
+  "replay_sort": {
+    "keys": [
+      "seq",
+      "event_tie_key",
+      "event_id"
+    ],
+    "direction": "ascending",
+    "event_tie_key_rules": {
+      "REGISTER_SAMPLE": "sample_id",
+      "SEED_LABEL": "sample_id",
+      "SCORE_UNCERTAINTY": "sample_id",
+      "SCORE_DIVERSITY": "sample_id",
+      "SET_STRATEGY": "strategy",
+      "PICK_BATCH": "round_id",
+      "APPLY_LABEL": "sample_id",
+      "RECORD_PROBE": "round_id",
+      "CLOSE_SUITE": "suite_id"
+    }
+  },
+  "duplicate_events": {
+    "first_event_id_wins": true,
+    "counter_field": "duplicate_events_skipped",
+    "later_events_do_not_mutate_state": true,
+    "empty_event_id_never_deduped": true
+  },
+  "label_accounting": {
+    "seed_label": "SEED_LABEL marks the sample labeled but must not increment labels_used and must not consume label_budget",
+    "pick_batch": "each sample successfully labeled by an accepted PICK_BATCH increments labels_used by one and consumes budget",
+    "apply_label": "first APPLY_LABEL on an unlabeled registered sample increments labels_used; repeated APPLY_LABEL is an idempotent no-op and never emits LABEL_LEAK"
+  },
+  "selection": {
+    "uncertainty_rank": "descending uncertainty then ascending sample_id",
+    "diversity_rank": "descending diversity then ascending sample_id",
+    "hybrid_score": "integer (uncertainty_weight times uncertainty plus diversity_weight times diversity plus 50) divided by 100",
+    "hybrid_rank": "descending hybrid_score then descending diversity then ascending sample_id",
+    "candidate_pool": "all registered unlabeled samples regardless of whether scores are present",
+    "score_round": "output score_round is the minimum of uncertainty_round and diversity_round when both exist, otherwise 0",
+    "score_missing_order": "before ranking inspect candidate_pool by ascending sample_id and emit SCORE_MISSING for the first sample missing either channel",
+    "eligible": "registered unlabeled sample with both uncertainty and diversity scored and both channel scores not stale",
+    "stale_rule": "after missing-score validation rank all complete candidates; for the best ranked candidate check uncertainty first then diversity and stale when current_round minus that channel round is strictly greater than max_score_age_rounds",
+    "rescore_rule": "each scoring event replaces only its own channel value and channel round; same-seq events replay by tie key then event_id so the later replayed event wins",
+    "pick_count": "min of batch_size remaining_budget and eligible count",
+    "post_label_score": "SCORE_UNCERTAINTY or SCORE_DIVERSITY on an already labeled registered sample emits POST_LABEL_SCORE at that event_seq entity_id sample_id detail exactly SCORE_UNCERTAINTY or SCORE_DIVERSITY; do not mutate channel values; do not increment score_calls",
+    "channel_skew": "on the best ranked complete candidate emit CHANNEL_SKEW when abs(uncertainty_round minus diversity_round) is strictly greater than max_channel_skew_rounds; detail is uncertainty_round colon diversity_round; checked after SCORE_MISSING and before STALE_SCORE"
+  },
+  "pick_batch_gate_order": {
+    "short_circuit_after_first_finding": true,
+    "order": [
+      "ROUND_REGRESSION",
+      "ROUND_GAP",
+      "UNKNOWN_STRATEGY",
+      "HYBRID_WEIGHT_INVALID",
+      "BUDGET_OVERRUN",
+      "POOL_EXHAUSTED",
+      "SCORE_MISSING",
+      "CHANNEL_SKEW",
+      "STALE_SCORE",
+      "LABEL_LEAK",
+      "BATCH_UNDERFILL",
+      "DUPLICATE_PICK"
+    ],
+    "budget_overrun": "requested batch_size greater than remaining label_budget emits BUDGET_OVERRUN entity_id round_id detail remaining budget as decimal; remaining uses labels_used which excludes SEED_LABEL",
+    "round_regression": "a PICK_BATCH round strictly lower than the preceding PICK_BATCH round emits ROUND_REGRESSION entity_id round_id detail previous round decimal; every PICK_BATCH updates the preceding round even when another gate rejects it",
+    "round_gap": "after at least one prior PICK_BATCH, if current round is strictly greater than previous round plus one emit ROUND_GAP entity_id round_id detail expected next round as decimal equal to previous plus one; still update preceding round",
+    "pool_exhausted": "zero registered unlabeled samples emits POOL_EXHAUSTED; missing or stale scores do not make this pool empty",
+    "score_missing": "before ranking emit SCORE_MISSING for the lexicographically first registered unlabeled sample missing uncertainty or diversity",
+    "stale_score": "after all candidates have both scores rank them and inspect the best candidate; check uncertainty then diversity and emit STALE_SCORE detail channel colon channel_round",
+    "label_leak": "applies only to explicit picks in PICK_BATCH; APPLY_LABEL on an already labeled sample is an idempotent no-op",
+    "batch_underfill": "after filters selected count strictly less than requested batch_size and remaining budget allows full batch emits BATCH_UNDERFILL detail selected count",
+    "duplicate_pick": "same sample_id selected twice in one PICK_BATCH emits DUPLICATE_PICK",
+    "channel_skew": "abs channel round gap strictly greater than max_channel_skew_rounds emits CHANNEL_SKEW entity_id sample_id detail uncertainty_round colon diversity_round"
+  },
+  "metrics": {
+    "annotation_efficiency_bps": "when labels_used is 0 return 0; when final_accuracy_bps is strictly less than seed_accuracy_bps return 0; otherwise floor of (final_accuracy_bps minus seed_accuracy_bps) times 100 divided by labels_used. Example labels_used 2 final 8200 seed 5000 yields 160000",
+    "convergence_round": "first RECORD_PROBE round_id where accuracy_bps is at least target_accuracy_bps else 0",
+    "confidence_lo_bps": "when labels_used greater than 0 floor of final_accuracy_bps times labels_used divided by (labels_used plus confidence_z2) else 0. Example final 8200 labels_used 2 confidence_z2 4 yields 2733",
+    "compute_cost_milli": "labels_used times cost_per_label_milli plus score_calls times cost_per_score_milli; score_calls counts orphan scores and successful channel updates on unlabeled registered samples but not POST_LABEL_SCORE events",
+    "cost_overflow": "when compute_cost_milli strictly greater than max_compute_cost_milli emit COST_OVERFLOW at CLOSE_SUITE; equality does not emit",
+    "confidence_underflow": "when labels_used strictly less than min_confidence_n at CLOSE_SUITE emit CONFIDENCE_UNDERFLOW",
+    "convergence_stall": "when the last stall_rounds consecutive RECORD_PROBE accuracy deltas are each strictly less than stall_delta_bps emit CONVERGENCE_STALL at audit_seq entity_id equal to the last probe round_id string detail last delta",
+    "probe_regression": "when a RECORD_PROBE accuracy_bps is strictly less than the previous RECORD_PROBE accuracy_bps emit PROBE_REGRESSION at that event_seq entity_id round_id detail previous accuracy decimal; still update final_accuracy_bps"
+  },
+  "post_audit": {
+    "audit_seq": "max event seq plus one",
+    "orphan_score": "SCORE_UNCERTAINTY or SCORE_DIVERSITY for unregistered sample_id emits ORPHAN_SCORE once per sample_id at audit_seq which is max event seq plus one; finding event_seq equals audit_seq not the triggering score seq; entity_id sample_id detail exactly SCORE_UNCERTAINTY or SCORE_DIVERSITY"
+  },
+  "strategy_switch": "second SET_STRATEGY with different strategy value emits STRATEGY_SWITCH entity_id new strategy detail prior strategy",
+  "hybrid_weight_invalid": "uncertainty_weight plus diversity_weight must equal 100 and both non-negative otherwise HYBRID_WEIGHT_INVALID",
+  "finding_id": {
+    "format": "suite_id double colon entity_id double colon event_seq as four decimal digits",
+    "separator": "::",
+    "pattern": "^.+::.+::\\d{4}$",
+    "event_seq_source": "seq field of the triggering replay event not replay index"
+  },
+  "finding_entity_detail": {
+    "DUPLICATE_SAMPLE": "entity_id is sample_id; detail empty string",
+    "UNKNOWN_STRATEGY": "entity_id is strategy string; detail empty string",
+    "HYBRID_WEIGHT_INVALID": "entity_id is hybrid; detail is uncertainty_weight then colon then diversity_weight",
+    "BUDGET_OVERRUN": "entity_id is round_id; detail is remaining budget decimal",
+    "LABEL_LEAK": "entity_id is sample_id; detail empty string",
+    "POOL_EXHAUSTED": "entity_id is round_id; detail empty string",
+    "STALE_SCORE": "entity_id is sample_id; detail is uncertainty or diversity then colon then that channel round decimal",
+    "ORPHAN_SCORE": "entity_id is sample_id; detail is SCORE_UNCERTAINTY or SCORE_DIVERSITY",
+    "BATCH_UNDERFILL": "entity_id is round_id; detail is selected count decimal",
+    "DUPLICATE_PICK": "entity_id is sample_id; detail empty string",
+    "CONVERGENCE_STALL": "entity_id is last probe round_id; detail is last delta decimal",
+    "COST_OVERFLOW": "entity_id is suite_id; detail is compute_cost_milli decimal",
+    "CONFIDENCE_UNDERFLOW": "entity_id is suite_id; detail is labels_used decimal",
+    "SCORE_MISSING": "entity_id is sample_id; detail empty string",
+    "STRATEGY_SWITCH": "entity_id is new strategy; detail is prior strategy",
+    "ROUND_REGRESSION": "entity_id is round_id; detail is previous PICK_BATCH round decimal",
+    "ROUND_GAP": "entity_id is round_id; detail is expected next round decimal",
+    "PROBE_REGRESSION": "entity_id is round_id; detail is previous accuracy_bps decimal",
+    "POST_LABEL_SCORE": "entity_id is sample_id; detail is SCORE_UNCERTAINTY or SCORE_DIVERSITY",
+    "CHANNEL_SKEW": "entity_id is sample_id; detail is uncertainty_round then colon then diversity_round"
+  }
+}

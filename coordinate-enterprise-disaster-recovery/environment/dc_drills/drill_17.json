@@ -1,0 +1,57 @@
+{
+  "drill_id": "drill_17",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "d17e01",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC1",
+      "region_class": "primary",
+      "capacity_units": 5
+    },
+    {
+      "seq": 2,
+      "event_id": "d17e02",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S1",
+      "service_id": "s1",
+      "checksum": "c1",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 120
+    },
+    {
+      "seq": 3,
+      "event_id": "d17e03",
+      "kind": "START_WAVE",
+      "wave_id": "W1",
+      "wave_index": 1
+    },
+    {
+      "seq": 4,
+      "event_id": "d17e04",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "s1",
+      "snapshot_id": "S1",
+      "checksum": "c1",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:00:00Z",
+      "finished_at": "2026-07-01T12:15:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 5,
+      "event_id": "d17e05",
+      "kind": "PROBE_HEALTH",
+      "probe_id": "P1",
+      "service_id": "s1",
+      "healthy": true,
+      "critical": false
+    },
+    {
+      "seq": 6,
+      "event_id": "d17e06",
+      "kind": "CLOSE_DRILL",
+      "closed_at": "2026-07-01T12:15:00Z"
+    }
+  ]
+}

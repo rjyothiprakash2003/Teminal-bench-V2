@@ -1,0 +1,41 @@
+{
+  "window_id": "window_16",
+  "policy_overrides": {
+    "escalate_z": 20
+  },
+  "hosts": [
+    {
+      "host_id": "WS-H",
+      "role": "workstation",
+      "features": {
+        "flow_bytes": {
+          "mean": 1000,
+          "obs": 1000,
+          "std": 200
+        },
+        "auth_fail_rate": {
+          "mean": 0.02,
+          "obs": 0.02,
+          "std": 0.01
+        },
+        "dns_nx": {
+          "mean": 0.05,
+          "obs": 0.05,
+          "std": 0.02
+        },
+        "beacon_interval": {
+          "mean": 60,
+          "obs": 5,
+          "std": 5
+        },
+        "unique_peers": {
+          "mean": 8,
+          "obs": 8,
+          "std": 3
+        }
+      },
+      "peers": []
+    }
+  ],
+  "peer_links": []
+}

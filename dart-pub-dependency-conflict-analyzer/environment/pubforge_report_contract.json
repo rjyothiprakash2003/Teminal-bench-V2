@@ -1,0 +1,86 @@
+{
+  "schema_version": "1",
+  "report_encoding": {
+    "format": "JSON indented with two spaces followed by exactly one trailing newline",
+    "empty_collections": "Every collection is present as an empty JSON array when no findings exist. Never emit null for a collection.",
+    "paths": "Slash separated and relative to the analysis root. The root itself is the empty string."
+  },
+  "ordering": {
+    "packages": "name then path",
+    "edges": "from then to then scope then constraint then source",
+    "conflicts": "package",
+    "unused_dependencies": "package then dependency",
+    "source_inconsistencies": "dependency",
+    "cycles": "lexicographic comparison of the full canonical cycle lists",
+    "lockfile_issues": "package then dependency then kind",
+    "nested_string_arrays": "constraints, required_by, sources, and declared_by are each deduplicated and sorted lexicographically"
+  },
+  "edge_scope_values": ["dependencies", "dev_dependencies"],
+  "source_values": {
+    "hosted_default": "hosted",
+    "hosted_custom": "hosted followed by one space and the URL, for example: hosted https://pub.internal",
+    "git": "git followed by one space and the URL, for example: git https://git.example/shared.git",
+    "path": "path followed by one space and the cleaned relative path, for example: path ../beta",
+    "sdk": "sdk followed by one space and the SDK name, for example: sdk flutter"
+  },
+  "constraint_values": {
+    "default": "any when no constraint is declared or the dependency uses a path, git, or sdk source",
+    "normalization": "surrounding quotes removed and interior whitespace collapsed to single spaces, for example: >=1.0.0 <2.0.0"
+  },
+  "cycles": {
+    "encoding": "Each cycle is a closed walk over local package names. The walk starts at the lexicographically smallest package in the cycle and the starting package name is repeated again as the final element.",
+    "example_two_package_cycle": ["alpha", "zulu", "alpha"],
+    "deduplication": "Rotations of the same cycle are reported once, in canonical form only.",
+    "membership": "Only path or name references that resolve to packages discovered in this workspace participate in cycles."
+  },
+  "lockfile_issue_kinds": {
+    "missing_lockfile": {
+      "when": "A package declares at least one dependency and has no pubspec.lock file. Reported once per package.",
+      "dependency": "empty string",
+      "expected": "pubspec.lock",
+      "actual": "empty string"
+    },
+    "missing_dependency": {
+      "when": "A declared dependency has no entry in the lockfile packages section.",
+      "dependency": "the dependency name",
+      "expected": "the declared constraint string",
+      "actual": "empty string"
+    },
+    "version_mismatch": {
+      "when": "The locked version does not satisfy the declared constraint. Not checked when the constraint is any.",
+      "dependency": "the dependency name",
+      "expected": "the declared constraint string",
+      "actual": "the locked version string"
+    },
+    "source_mismatch": {
+      "when": "The bare source kind in the lockfile differs from the bare kind declared in the manifest. Compare only the first word of the source, never the URL or path portion.",
+      "dependency": "the dependency name",
+      "expected": "the declared bare kind, one of hosted, git, path, sdk",
+      "actual": "the locked source value"
+    }
+  },
+  "conflicts": {
+    "when": "The intersection of every declared constraint for a dependency is empty, or the dependency resolves to a local workspace package whose version fails that intersection.",
+    "fields": "constraints holds the deduplicated sorted constraint strings and required_by holds the deduplicated sorted declaring package names"
+  },
+  "unused_dependencies": {
+    "when": "A regular dependency of a package is never imported by any Dart file under that package lib or bin directories using a package import.",
+    "exclusions": "Development dependencies are never reported as unused."
+  },
+  "source_inconsistencies": {
+    "when": "The same dependency name is declared with two or more distinct canonical source strings across the workspace.",
+    "fields": "sources holds the distinct canonical source strings and declared_by holds the declaring package names, both deduplicated and sorted"
+  },
+  "malformed_input": {
+    "definition": "A pubspec manifest with a missing or empty name, a missing or empty version, an invalid semantic version, or a tab character. Two discovered packages sharing one name are also malformed.",
+    "behavior": "The command exits with a nonzero status and prints a diagnostic to standard error.",
+    "diagnostic_phrases": {
+      "empty_name_or_version": "requires nonempty name and version",
+      "duplicate_names": "duplicate package name"
+    }
+  },
+  "yaml_subset": {
+    "list_entries": "Lines beginning with a dash outside the dependencies and dev_dependencies sections, such as Flutter asset lists, are ignored rather than treated as errors.",
+    "comments": "Full line and trailing comments outside quotes are ignored."
+  }
+}

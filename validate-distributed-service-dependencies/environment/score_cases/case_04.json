@@ -1,0 +1,40 @@
+{
+  "case_id": "case_04",
+  "soft_dampen_pct": 50,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "A"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "reservoir",
+      "critical": false,
+      "site_id": "B"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "A",
+      "source_id": "B",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "A",
+      "source_id": "B",
+      "channel": "mass",
+      "weight": 5
+    }
+  ]
+}

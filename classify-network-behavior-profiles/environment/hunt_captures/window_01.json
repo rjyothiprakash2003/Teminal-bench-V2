@@ -1,0 +1,38 @@
+{
+  "window_id": "window_01",
+  "hosts": [
+    {
+      "host_id": "WS-A",
+      "role": "workstation",
+      "features": {
+        "flow_bytes": {
+          "mean": 1000,
+          "obs": 1000,
+          "std": 200
+        },
+        "auth_fail_rate": {
+          "mean": 0.02,
+          "obs": 0.02,
+          "std": 0.01
+        },
+        "dns_nx": {
+          "mean": 0.05,
+          "obs": 0.05,
+          "std": 0.02
+        },
+        "beacon_interval": {
+          "mean": 3600,
+          "obs": 3600,
+          "std": 400
+        },
+        "unique_peers": {
+          "mean": 8,
+          "obs": 8,
+          "std": 3
+        }
+      },
+      "peers": []
+    }
+  ],
+  "peer_links": []
+}

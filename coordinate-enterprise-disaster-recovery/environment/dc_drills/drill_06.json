@@ -1,0 +1,53 @@
+{
+  "drill_id": "drill_06",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "d06e01",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC_A",
+      "region_class": "primary",
+      "capacity_units": 5
+    },
+    {
+      "seq": 2,
+      "event_id": "d06e02",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S_A",
+      "service_id": "svc_a",
+      "checksum": "x",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 3,
+      "event_id": "d06e03",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S_B",
+      "service_id": "svc_b",
+      "checksum": "y",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 4,
+      "event_id": "d06e04",
+      "kind": "LINK_DEPENDENCY",
+      "from_service": "svc_a",
+      "to_service": "svc_b"
+    },
+    {
+      "seq": 5,
+      "event_id": "d06e05",
+      "kind": "LINK_DEPENDENCY",
+      "from_service": "svc_b",
+      "to_service": "svc_a"
+    },
+    {
+      "seq": 6,
+      "event_id": "d06e06",
+      "kind": "CLOSE_DRILL",
+      "closed_at": "2026-07-01T12:15:00Z"
+    }
+  ]
+}

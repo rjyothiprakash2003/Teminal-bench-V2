@@ -1,0 +1,10 @@
+{
+  "scenario_id": "realmcase_44",
+  "require_checkpoint_on_internal": false,
+  "policy_overrides": {
+    "require_checkpoint_prefixes": [
+      "admin:"
+    ],
+    "block_partner_to_privileged": false
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "required_targets": [
+    "prepare",
+    "generate",
+    "compile",
+    "resources",
+    "package",
+    "checksums",
+    "audit"
+  ],
+  "required_edges": {
+    "audit": ["checksums"],
+    "checksums": ["package"],
+    "compile": ["generate"],
+    "generate": ["prepare"],
+    "package": ["compile", "resources"],
+    "resources": ["prepare"]
+  },
+  "required_properties": {
+    "archive.name": "ember-core.jar",
+    "artifact.path": "dist/ember-core.jar",
+    "build.epoch": "946684800",
+    "release.name": "ember-core"
+  },
+  "required_artifacts": [
+    {
+      "path": "dist/ember-core.jar",
+      "producer": "package"
+    }
+  ],
+  "incremental_targets": ["compile", "package"],
+  "package": {
+    "required_entries": [
+      "META-INF/MANIFEST.MF",
+      "config/default.properties",
+      "ember/Main.class"
+    ],
+    "epoch": 946684800,
+    "mode": "0644",
+    "minimum_unique_operating_systems": 2
+  },
+  "sha256_pattern": "^[0-9a-f]{64}$",
+  "violation_codes": {
+    "duplicate_target": "DUPLICATE_TARGET",
+    "missing_target": "MISSING_TARGET",
+    "unknown_dependency": "UNKNOWN_DEPENDENCY",
+    "missing_edge": "MISSING_EDGE",
+    "target_cycle": "TARGET_CYCLE",
+    "property_cycle": "PROPERTY_CYCLE",
+    "unresolved_property": "UNRESOLVED_PROPERTY",
+    "property_mismatch": "PROPERTY_MISMATCH",
+    "duplicate_artifact": "DUPLICATE_ARTIFACT",
+    "invalid_sha256": "INVALID_SHA256",
+    "checksum_mismatch": "CHECKSUM_MISMATCH",
+    "missing_artifact": "MISSING_ARTIFACT",
+    "producer_mismatch": "PRODUCER_MISMATCH",
+    "incremental_rebuilt_unchanged": "INCREMENTAL_REBUILT_UNCHANGED",
+    "unstable_unchanged_output": "UNSTABLE_UNCHANGED_OUTPUT",
+    "incremental_skipped_changed": "INCREMENTAL_SKIPPED_CHANGED",
+    "stale_changed_output": "STALE_CHANGED_OUTPUT",
+    "missing_incremental_case": "MISSING_INCREMENTAL_CASE",
+    "duplicate_platform": "DUPLICATE_PLATFORM",
+    "unsafe_entry": "UNSAFE_ENTRY",
+    "package_timestamp": "PACKAGE_TIMESTAMP",
+    "package_mode": "PACKAGE_MODE",
+    "package_entry_order": "PACKAGE_ENTRY_ORDER",
+    "package_entry_set_mismatch": "PACKAGE_ENTRY_SET_MISMATCH",
+    "package_digest_mismatch": "PACKAGE_DIGEST_MISMATCH",
+    "package_content_mismatch": "PACKAGE_CONTENT_MISMATCH",
+    "insufficient_platforms": "INSUFFICIENT_PLATFORMS"
+  },
+  "detail_rules": {
+    "DUPLICATE_TARGET": "",
+    "MISSING_TARGET": "",
+    "UNKNOWN_DEPENDENCY": "unknown_dependency_name",
+    "MISSING_EDGE": "missing_required_dependency",
+    "TARGET_CYCLE": "",
+    "PROPERTY_CYCLE": "",
+    "UNRESOLVED_PROPERTY": "missing_reference_name",
+    "PROPERTY_MISMATCH": "required_value",
+    "DUPLICATE_ARTIFACT": "",
+    "INVALID_SHA256.artifact": "artifact",
+    "INVALID_SHA256.sidecar": "sidecar",
+    "INVALID_SHA256.archive": "archive",
+    "INVALID_SHA256.entry": "entry_path",
+    "CHECKSUM_MISMATCH": "",
+    "MISSING_ARTIFACT": "",
+    "PRODUCER_MISMATCH": "required_producer",
+    "INCREMENTAL_REBUILT_UNCHANGED": "",
+    "UNSTABLE_UNCHANGED_OUTPUT": "",
+    "INCREMENTAL_SKIPPED_CHANGED": "",
+    "STALE_CHANGED_OUTPUT": "",
+    "MISSING_INCREMENTAL_CASE": "unchanged_or_changed",
+    "DUPLICATE_PLATFORM": "",
+    "UNSAFE_ENTRY": "unsafe_entry_path",
+    "PACKAGE_TIMESTAMP": "entry_path",
+    "PACKAGE_MODE": "entry_path",
+    "PACKAGE_ENTRY_ORDER": "",
+    "PACKAGE_ENTRY_SET_MISMATCH": "",
+    "PACKAGE_DIGEST_MISMATCH": "baseline_os",
+    "PACKAGE_CONTENT_MISMATCH": "lexicographically_smallest_mismatched_entry_path",
+    "INSUFFICIENT_PLATFORMS": "",
+    "LIST_ORDER.targets": "name_ascending",
+    "LIST_ORDER.properties": "name_ascending",
+    "LIST_ORDER.violations": "code_then_subject_then_detail_ascending",
+    "LIST_ORDER.dependencies": "name_ascending"
+  },
+  "co_fire_examples": {
+    "duplicate_artifact_bad_digest": [
+      "DUPLICATE_ARTIFACT",
+      "INVALID_SHA256",
+      "CHECKSUM_MISMATCH"
+    ],
+    "duplicate_platform_content_drift": [
+      "DUPLICATE_PLATFORM",
+      "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "invalid_and_checksum": [
+      "INVALID_SHA256",
+      "CHECKSUM_MISMATCH"
+    ]
+  }
+}

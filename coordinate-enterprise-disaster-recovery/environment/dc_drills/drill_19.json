@@ -1,0 +1,28 @@
+{
+  "drill_id": "drill_19",
+  "risk_ceiling": 2,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "d19e01",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC1",
+      "region_class": "primary",
+      "capacity_units": 5
+    },
+    {
+      "seq": 2,
+      "event_id": "d19e02",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC1",
+      "region_class": "dr",
+      "capacity_units": 3
+    },
+    {
+      "seq": 3,
+      "event_id": "d19e03",
+      "kind": "CLOSE_DRILL",
+      "closed_at": "2026-07-01T12:15:00Z"
+    }
+  ]
+}

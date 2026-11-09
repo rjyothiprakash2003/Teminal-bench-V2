@@ -1,0 +1,98 @@
+{
+  "case_id": "case_19",
+  "max_fanout_depth": 1,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "reservoir",
+      "critical": false,
+      "site_id": "F"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "C1"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "C2"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "REGISTER_SITE",
+      "tier": "boundary",
+      "critical": false,
+      "site_id": "C3"
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "C1",
+      "source_id": "F",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "C2",
+      "source_id": "C1",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "C3",
+      "source_id": "C2",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 8,
+      "event_id": "e08",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "C1",
+      "source_id": "F",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 9,
+      "event_id": "e09",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "C2",
+      "source_id": "C1",
+      "channel": "heat",
+      "weight": 0
+    },
+    {
+      "seq": 10,
+      "event_id": "e10",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "C3",
+      "source_id": "C2",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 11,
+      "event_id": "e11",
+      "kind": "INJECT_FAILURE",
+      "site_id": "F"
+    }
+  ]
+}

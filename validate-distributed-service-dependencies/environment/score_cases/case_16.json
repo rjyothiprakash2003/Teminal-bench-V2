@@ -1,0 +1,127 @@
+{
+  "case_id": "case_16",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "A"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "B"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "C"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "D"
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "A",
+      "source_id": "B",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "B",
+      "source_id": "C",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "C",
+      "source_id": "A",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 8,
+      "event_id": "e08",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "B",
+      "source_id": "A",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 9,
+      "event_id": "e09",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "D",
+      "source_id": "A",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 10,
+      "event_id": "e10",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "A",
+      "source_id": "B",
+      "channel": "mass",
+      "weight": 1
+    },
+    {
+      "seq": 11,
+      "event_id": "e11",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "B",
+      "source_id": "C",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 12,
+      "event_id": "e12",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "C",
+      "source_id": "A",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 13,
+      "event_id": "e13",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "B",
+      "source_id": "A",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 14,
+      "event_id": "e14",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "D",
+      "source_id": "A",
+      "channel": "heat",
+      "weight": 0
+    }
+  ]
+}

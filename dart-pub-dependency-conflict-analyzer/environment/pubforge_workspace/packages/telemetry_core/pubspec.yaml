@@ -1,0 +1,4 @@
+name: telemetry_core
+version: 2.1.0
+dependencies:
+  collection: ^1.18.0

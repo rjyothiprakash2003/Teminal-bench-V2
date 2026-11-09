@@ -1,0 +1,79 @@
+{
+  "case_id": "case_18",
+  "max_fanout_depth": 5,
+  "max_chain_depth": 5,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "boundary",
+      "critical": false,
+      "site_id": "S0"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "MID"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "reservoir",
+      "critical": false,
+      "site_id": "LEAF"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "SET_SEED",
+      "site_id": "S0"
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "MID",
+      "source_id": "S0",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "LEAF",
+      "source_id": "MID",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "MID",
+      "source_id": "S0",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 8,
+      "event_id": "e08",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "LEAF",
+      "source_id": "MID",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 9,
+      "event_id": "e09",
+      "kind": "INJECT_FAILURE",
+      "site_id": "MID"
+    }
+  ]
+}

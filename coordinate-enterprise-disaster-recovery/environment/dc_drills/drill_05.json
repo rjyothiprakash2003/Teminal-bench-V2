@@ -1,0 +1,114 @@
+{
+  "drill_id": "drill_05",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "d05e01",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC_EAST",
+      "region_class": "primary",
+      "capacity_units": 10
+    },
+    {
+      "seq": 2,
+      "event_id": "d05e02",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC_WEST",
+      "region_class": "dr",
+      "capacity_units": 8
+    },
+    {
+      "seq": 3,
+      "event_id": "d05e03",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "SNAP_DB",
+      "service_id": "svc_db",
+      "checksum": "aaa111",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 60
+    },
+    {
+      "seq": 4,
+      "event_id": "d05e04",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "SNAP_API",
+      "service_id": "svc_api",
+      "checksum": "bbb222",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 90
+    },
+    {
+      "seq": 5,
+      "event_id": "d05e05",
+      "kind": "LINK_DEPENDENCY",
+      "from_service": "svc_api",
+      "to_service": "svc_db"
+    },
+    {
+      "seq": 6,
+      "event_id": "d05e06",
+      "kind": "START_WAVE",
+      "wave_id": "W1",
+      "wave_index": 1
+    },
+    {
+      "seq": 7,
+      "event_id": "d05e08",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "svc_api",
+      "snapshot_id": "SNAP_API",
+      "checksum": "bbb222",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:05:00Z",
+      "finished_at": "2026-07-01T12:10:00Z",
+      "replica_count": 2,
+      "failover_target": "DC_WEST"
+    },
+    {
+      "seq": 8,
+      "event_id": "d05e07",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "svc_db",
+      "snapshot_id": "SNAP_DB",
+      "checksum": "aaa111",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:00:00Z",
+      "finished_at": "2026-07-01T12:05:00Z",
+      "replica_count": 2,
+      "failover_target": "DC_WEST"
+    },
+    {
+      "seq": 9,
+      "event_id": "d05e09",
+      "kind": "PROBE_HEALTH",
+      "probe_id": "P1",
+      "service_id": "svc_db",
+      "healthy": true,
+      "critical": false
+    },
+    {
+      "seq": 10,
+      "event_id": "d05e10",
+      "kind": "PROBE_HEALTH",
+      "probe_id": "P2",
+      "service_id": "svc_api",
+      "healthy": true,
+      "critical": false
+    },
+    {
+      "seq": 11,
+      "event_id": "d05e11",
+      "kind": "PROBE_HEALTH",
+      "probe_id": "P3",
+      "service_id": "svc_api",
+      "healthy": true,
+      "critical": false
+    },
+    {
+      "seq": 12,
+      "event_id": "d05e12",
+      "kind": "CLOSE_DRILL",
+      "closed_at": "2026-07-01T12:15:00Z"
+    }
+  ]
+}

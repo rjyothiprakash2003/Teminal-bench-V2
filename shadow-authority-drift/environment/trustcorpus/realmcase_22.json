@@ -1,0 +1,9 @@
+{
+  "scenario_id": "realmcase_22",
+  "policy_overrides": {
+    "block_partner_to_privileged": false,
+    "require_checkpoint_prefixes": [
+      "admin:"
+    ]
+  }
+}

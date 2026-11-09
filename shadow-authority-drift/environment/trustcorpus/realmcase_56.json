@@ -1,0 +1,7 @@
+{
+  "scenario_id": "realmcase_56",
+  "require_checkpoint_on_internal": false,
+  "policy_overrides": {
+    "suppress_lateral_movement": true
+  }
+}

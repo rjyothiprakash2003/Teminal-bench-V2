@@ -1,0 +1,7 @@
+{
+  "scenario_id": "realmcase_54",
+  "require_checkpoint_on_internal": false,
+  "policy_overrides": {
+    "open_authority_lex_first": true
+  }
+}

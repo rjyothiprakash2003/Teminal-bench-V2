@@ -1,0 +1,52 @@
+# Task configuration schema version
+version = "2.0"
+
+# Task metadata (author, difficulty, categorization)
+[metadata]
+author_name = "rjyothiprakash2003"
+author_email = "247642017+rjyothiprakash2003@users.noreply.github.com"
+difficulty = "hard"
+category = "machine-learning"
+# Options for subcategories are: "long_context", "tool_specific", "api_integration", "db_interaction", "ui_building"
+subcategories = ["tool_specific"]
+# The number of milestones in the task (can be zero if not a milestone task)
+number_of_milestones = 0
+# Size of the codebase: minimal -> 0-20 files, small -> 20+ files, large -> 200+ files
+codebase_size = "small"
+# Coding languages used in the oracle solution or required by the agent
+languages = ["go", "bash"]
+# For tool_specific, api_integration, and db_interaction subcategories, please include specific tool, api framework, or database software
+tags = [
+    "active-learning",
+    "supervised-learning",
+    "uncertainty-sampling",
+    "diversity-sampling",
+    "query-strategy",
+    "label-efficiency",
+    "model-training",
+    "annotation-budget",
+    "classifier-accuracy",
+    "machine-learning",
+]
+# Estimated time to complete (minutes)
+expert_time_estimate_min = 180
+junior_time_estimate_min = 360
+
+# Verifier: runs the test script to check task completion
+[verifier]
+timeout_sec = 1200.0
+
+# Agent: limits how long the agent can run when attempting the task
+[agent]
+timeout_sec = 1800.0
+
+# Sandbox environment limits
+[environment]
+allow_internet = false
+build_timeout_sec = 900.0
+docker_flags = []
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+gpu_types = []

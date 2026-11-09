@@ -1,0 +1,122 @@
+{
+  "window_id": "window_20",
+  "hosts": [
+    {
+      "host_id": "A1",
+      "role": "workstation",
+      "features": {
+        "flow_bytes": {
+          "mean": 1000,
+          "obs": 4000,
+          "std": 200
+        },
+        "auth_fail_rate": {
+          "mean": 0.02,
+          "obs": 0.02,
+          "std": 0.01
+        },
+        "dns_nx": {
+          "mean": 0.05,
+          "obs": 0.05,
+          "std": 0.02
+        },
+        "beacon_interval": {
+          "mean": 3600,
+          "obs": 3600,
+          "std": 400
+        },
+        "unique_peers": {
+          "mean": 8,
+          "obs": 8,
+          "std": 3
+        }
+      },
+      "peers": [
+        "Q"
+      ]
+    },
+    {
+      "host_id": "A2",
+      "role": "workstation",
+      "features": {
+        "flow_bytes": {
+          "mean": 1000,
+          "obs": 1000,
+          "std": 200
+        },
+        "auth_fail_rate": {
+          "mean": 0.02,
+          "obs": 0.14,
+          "std": 0.01
+        },
+        "dns_nx": {
+          "mean": 0.05,
+          "obs": 0.05,
+          "std": 0.02
+        },
+        "beacon_interval": {
+          "mean": 3600,
+          "obs": 3600,
+          "std": 400
+        },
+        "unique_peers": {
+          "mean": 8,
+          "obs": 8,
+          "std": 3
+        }
+      },
+      "peers": [
+        "Q"
+      ]
+    },
+    {
+      "host_id": "Q",
+      "role": "workstation",
+      "features": {
+        "flow_bytes": {
+          "mean": 1000,
+          "obs": 2400,
+          "std": 200
+        },
+        "auth_fail_rate": {
+          "mean": 0.02,
+          "obs": 0.02,
+          "std": 0.01
+        },
+        "dns_nx": {
+          "mean": 0.05,
+          "obs": 0.05,
+          "std": 0.02
+        },
+        "beacon_interval": {
+          "mean": 3600,
+          "obs": 3600,
+          "std": 400
+        },
+        "unique_peers": {
+          "mean": 8,
+          "obs": 8,
+          "std": 3
+        }
+      },
+      "peers": [
+        "A1",
+        "A2"
+      ]
+    }
+  ],
+  "peer_links": [
+    {
+      "from": "A1",
+      "to": "Q",
+      "cost": 1,
+      "bidirectional": false
+    },
+    {
+      "from": "A2",
+      "to": "Q",
+      "cost": 1,
+      "bidirectional": false
+    }
+  ]
+}

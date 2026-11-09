@@ -1,0 +1,15 @@
+{
+  "suite_id": "suite_06",
+  "seed_accuracy_bps": 5000,
+  "min_confidence_n": 0,
+  "events": [
+    {"seq": 1, "event_id": "e01", "kind": "REGISTER_SAMPLE", "sample_id": "R1"},
+    {"seq": 2, "event_id": "e02", "kind": "REGISTER_SAMPLE", "sample_id": "R2"},
+    {"seq": 3, "event_id": "e03", "kind": "SEED_LABEL", "sample_id": "R1"},
+    {"seq": 4, "event_id": "e04", "kind": "SCORE_UNCERTAINTY", "sample_id": "R2", "uncertainty": 90, "round": 3},
+    {"seq": 5, "event_id": "e05", "kind": "SCORE_DIVERSITY", "sample_id": "R2", "diversity": 80, "round": 3},
+    {"seq": 6, "event_id": "e06", "kind": "SET_STRATEGY", "strategy": "uncertainty"},
+    {"seq": 7, "event_id": "e07", "kind": "PICK_BATCH", "round_id": "3", "round": 3, "batch_size": 1},
+    {"seq": 8, "event_id": "e08", "kind": "PICK_BATCH", "round_id": "2", "round": 2, "batch_size": 1}
+  ]
+}

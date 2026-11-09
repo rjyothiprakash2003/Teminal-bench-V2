@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "output_path": "/app/build/instability_threshold_report.json",
+  "binary_path": "/app/build/instabctl",
+  "manifest_path": "/app/flow_suites/manifest.json",
+  "case_count": 20,
+  "root_keys_only": ["cases"],
+  "case_keys": [
+    "case_id", "status", "richardson", "ri_crit", "growth_primary", "growth_secondary",
+    "growth_analytic", "growth_l2_err", "mass_drift", "mom_drift", "steps_taken",
+    "cfl_used", "preferred_scheme", "findings"
+  ],
+  "finding_keys": ["finding_id", "entity_id", "kind", "detail"],
+  "status_values": ["STABLE", "TRANSITIONAL", "UNSTABLE", "REJECTED"],
+  "status_rule": "REJECTED when hard findings present; else STABLE when richardson strictly greater than ri_crit and both growths at most growth_stable_cap and findings empty and preferred_scheme equals scheme_primary; else UNSTABLE when richardson strictly less than ri_crit and both growths greater than growth_stable_cap; else TRANSITIONAL",
+  "finding_kinds": [
+    "CFL_BREACH", "DENSITY_FLOOR", "SCHEME_UNKNOWN", "GROWTH_MISS", "MASS_DRIFT",
+    "MOM_DRIFT", "SOLVER_SPLIT", "UNDER_RESOLVED", "RI_MISCLASS"
+  ],
+  "finding_detail_format": {
+    "rule": "detail and entity_id are bare tokens only",
+    "encoder": "floats quantized by round to 1e-12 then strconv.FormatFloat value g -1 64; integers via decimal digits",
+    "examples": {
+      "UNDER_RESOLVED": {"entity_id": "case_11", "detail": "6"},
+      "GROWTH_MISS": {"entity_id": "case_12", "detail": "0.018221574344"},
+      "CFL_BREACH": {"entity_id": "case_04", "detail": "0.95"}
+    },
+    "SOLVER_SPLIT": "entity_id is preferred_scheme; detail is abs growth_primary minus growth_secondary only"
+  },
+  "encoding": {
+    "compact": true,
+    "no_space_after_colon_or_comma": true,
+    "trailing_newline": true,
+    "use_empty_arrays_not_null": true,
+    "floats": "strconv.FormatFloat value g -1 64 after round to 1e-12",
+    "determinism": "byte-identical across repeated make run"
+  },
+  "report_structure": {
+    "case_order": "manifest cases array",
+    "findings_sort": "sort by kind then entity_id then detail then assign finding_id indices",
+    "finding_id_format": "case_id::entity_id::NNNN four digit zero padded one based"
+  },
+  "defaults": {
+    "ri_crit": 0.25,
+    "cfl_max": 0.9,
+    "growth_stable_cap": 0.001,
+    "growth_tol": 0.2,
+    "mass_tol": 1e-09,
+    "mom_tol": 1.0,
+    "solver_agree_tol": 0.05,
+    "density_floor": 1e-12,
+    "min_steps": 8,
+    "cfl": 0.4,
+    "schemes": ["lax_friedrichs", "upwind"],
+    "scheme_dissipation": {"lax_friedrichs": 0.04, "upwind": 0.05},
+    "scheme_ref_cfl": {"lax_friedrichs": 0.4, "upwind": 0.5}
+  },
+  "policy_resolution": "case top level then policy_overrides via growscan.ResolveCase; key ri_crit overrides when positive",
+  "numerics": {
+    "richardson": "n2*delta/(delta_u^2) linear in delta",
+    "growth_analytic_base": "delta_u/(2*delta)*max(0, ri_crit-richardson); no sqrt",
+    "resolution_damper": "if steps_taken < min_steps then growth_analytic = 0.8 * base else base; store damped; apply before marching",
+    "timestep": "speed is arithmetic mean of max-abs and RMS; dt = cfl_used*dx/speed; steps_taken = round(t_end/dt) min one",
+    "cfl_breach": "strictly greater than cfl_max",
+    "effective_dissipation": "scale is scheme_ref_cfl / cfl_used; LF base 0.04 squared; upwind base 0.05 cubed",
+    "scheme_growth": "log seed rms ratio / (steps*dt)",
+    "preferred_scheme": "higher abs error versus stored growth_analytic; tie within 1e-12 then lex smaller",
+    "growth_l2_err": "sqrt(0.5*(ep^2+es^2)) versus stored growth_analytic",
+    "growth_miss_threshold": "growth_tol * max(1, abs(growth_analytic))",
+    "solver_split": "entity_id is preferred_scheme",
+    "rejection_short_circuit": "clear preferred; zero marched growths; zero growth_analytic"
+  },
+  "rejection_short_circuit": {
+    "hard_kinds": ["CFL_BREACH", "DENSITY_FLOOR", "SCHEME_UNKNOWN"],
+    "rule": "after hard finding do not emit soft findings; preferred empty; marched growth zero; growth_analytic zero"
+  }
+}

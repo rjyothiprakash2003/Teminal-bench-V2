@@ -1,0 +1,93 @@
+{
+  "drill_id": "drill_07",
+  "max_wave_capacity": 2,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "d07e01",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC1",
+      "region_class": "primary",
+      "capacity_units": 5
+    },
+    {
+      "seq": 2,
+      "event_id": "d07e02",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S1",
+      "service_id": "s1",
+      "checksum": "c1",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 3,
+      "event_id": "d07e03",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S2",
+      "service_id": "s2",
+      "checksum": "c2",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 4,
+      "event_id": "d07e04",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S3",
+      "service_id": "s3",
+      "checksum": "c3",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 5,
+      "event_id": "d07e05",
+      "kind": "START_WAVE",
+      "wave_id": "W1",
+      "wave_index": 1
+    },
+    {
+      "seq": 6,
+      "event_id": "d07e06",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "s1",
+      "snapshot_id": "S1",
+      "checksum": "c1",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:00:00Z",
+      "finished_at": "2026-07-01T12:05:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 7,
+      "event_id": "d07e07",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "s2",
+      "snapshot_id": "S2",
+      "checksum": "c2",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:00:00Z",
+      "finished_at": "2026-07-01T12:05:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 8,
+      "event_id": "d07e08",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "s3",
+      "snapshot_id": "S3",
+      "checksum": "c3",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:00:00Z",
+      "finished_at": "2026-07-01T12:05:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 9,
+      "event_id": "d07e09",
+      "kind": "CLOSE_DRILL",
+      "closed_at": "2026-07-01T12:15:00Z"
+    }
+  ]
+}

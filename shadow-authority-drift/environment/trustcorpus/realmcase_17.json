@@ -1,0 +1,7 @@
+{
+  "scenario_id": "realmcase_17",
+  "require_checkpoint_on_internal": true,
+  "policy_overrides": {
+    "require_checkpoint_on_internal": false
+  }
+}

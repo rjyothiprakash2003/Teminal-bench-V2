@@ -1,0 +1,101 @@
+{
+  "case_id": "case_09",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "P"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "Q"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "R"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "P",
+      "source_id": "Q",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "Q",
+      "source_id": "R",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "R",
+      "source_id": "P",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "Q",
+      "source_id": "P",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 8,
+      "event_id": "e08",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "P",
+      "source_id": "Q",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 9,
+      "event_id": "e09",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "Q",
+      "source_id": "R",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 10,
+      "event_id": "e10",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "R",
+      "source_id": "P",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 11,
+      "event_id": "e11",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "Q",
+      "source_id": "P",
+      "channel": "heat",
+      "weight": 1
+    }
+  ]
+}

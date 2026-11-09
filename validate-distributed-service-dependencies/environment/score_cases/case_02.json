@@ -1,0 +1,50 @@
+{
+  "case_id": "case_02",
+  "soft_dampen_pct": 100,
+  "min_confidence": 5,
+  "outlier_threshold": 40,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "A"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "B"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "LONELY"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "A",
+      "source_id": "B",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "A",
+      "source_id": "B",
+      "channel": "heat",
+      "weight": 10
+    }
+  ]
+}

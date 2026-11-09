@@ -1,0 +1,70 @@
+{
+  "drill_id": "drill_13",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "d13e01",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC1",
+      "region_class": "primary",
+      "capacity_units": 5
+    },
+    {
+      "seq": 2,
+      "event_id": "d13e02",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S1",
+      "service_id": "s1",
+      "checksum": "c1",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 3,
+      "event_id": "d13e03",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S1B",
+      "service_id": "s1",
+      "checksum": "c1b",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 4,
+      "event_id": "d13e04",
+      "kind": "START_WAVE",
+      "wave_id": "W1",
+      "wave_index": 1
+    },
+    {
+      "seq": 5,
+      "event_id": "d13e05",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "s1",
+      "snapshot_id": "S1",
+      "checksum": "c1",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:00:00Z",
+      "finished_at": "2026-07-01T12:05:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 6,
+      "event_id": "d13e06",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "s1",
+      "snapshot_id": "S1B",
+      "checksum": "c1b",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:05:00Z",
+      "finished_at": "2026-07-01T12:10:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 7,
+      "event_id": "d13e07",
+      "kind": "CLOSE_DRILL",
+      "closed_at": "2026-07-01T12:15:00Z"
+    }
+  ]
+}

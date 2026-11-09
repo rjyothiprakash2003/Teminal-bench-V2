@@ -1,0 +1,39 @@
+version = "2.0"
+
+[metadata]
+author_name = "rjyothiprakash2003"
+author_email = "247642017+rjyothiprakash2003@users.noreply.github.com"
+difficulty = "hard"
+category = "machine-learning"
+subcategories = ["tool_specific"]
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["go", "bash"]
+tags = [
+    "supervised-learning",
+    "multiclass-classification",
+    "feature-engineering",
+    "confidence-calibration",
+    "soft-hard-features",
+    "decision-thresholds",
+    "offline-labeling",
+    "evidence-stacking",
+]
+expert_time_estimate_min = 180
+junior_time_estimate_min = 360
+
+[verifier]
+timeout_sec = 900.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 900.0
+docker_flags = []
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+gpu_types = []

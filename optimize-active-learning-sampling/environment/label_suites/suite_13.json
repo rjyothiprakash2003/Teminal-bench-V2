@@ -1,0 +1,27 @@
+{
+  "seed_accuracy_bps": 5000,
+  "min_confidence_n": 0,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SAMPLE",
+      "sample_id": "R1"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "SCORE_UNCERTAINTY",
+      "sample_id": "GHOST",
+      "uncertainty": 50,
+      "round": 1
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "CLOSE_SUITE",
+      "suite_id": "suite_13"
+    }
+  ],
+  "suite_id": "suite_13"
+}

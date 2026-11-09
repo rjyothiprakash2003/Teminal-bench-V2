@@ -1,0 +1,17 @@
+{
+  "suite_id": "suite_17",
+  "seed_accuracy_bps": 7000,
+  "min_confidence_n": 0,
+  "stall_delta_bps": 50,
+  "stall_rounds": 2,
+  "target_accuracy_bps": 9900,
+  "events": [
+    {"seq": 1, "event_id": "e01", "kind": "REGISTER_SAMPLE", "sample_id": "T1"},
+    {"seq": 2, "event_id": "e02", "kind": "SEED_LABEL", "sample_id": "T1"},
+    {"seq": 3, "event_id": "e03", "kind": "SET_STRATEGY", "strategy": "uncertainty"},
+    {"seq": 4, "event_id": "e04", "kind": "RECORD_PROBE", "round_id": "10", "round": 10, "accuracy_bps": 7100},
+    {"seq": 5, "event_id": "e05", "kind": "RECORD_PROBE", "round_id": "11", "round": 11, "accuracy_bps": 7120},
+    {"seq": 6, "event_id": "e06", "kind": "RECORD_PROBE", "round_id": "12", "round": 12, "accuracy_bps": 7000},
+    {"seq": 7, "event_id": "e07", "kind": "CLOSE_SUITE", "suite_id": "suite_17"}
+  ]
+}

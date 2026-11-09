@@ -1,0 +1,282 @@
+{
+  "version": 1,
+  "output_path": "/app/build/pairing_class_report.json",
+  "binary_path": "/app/build/scorectl",
+  "manifest_path": "/app/score_cases/manifest.json",
+  "case_count": 20,
+  "root_keys_only": [
+    "cases"
+  ],
+  "case_keys": [
+    "case_id",
+    "status",
+    "confidence",
+    "duplicate_events_skipped",
+    "sites",
+    "declared_couplings",
+    "observed_couplings",
+    "findings",
+    "corrections"
+  ],
+  "site_keys": [
+    "site_id",
+    "tier",
+    "critical",
+    "failed"
+  ],
+  "coupling_keys": [
+    "sink_id",
+    "source_id",
+    "channel",
+    "required"
+  ],
+  "observed_coupling_keys": [
+    "sink_id",
+    "source_id",
+    "channel",
+    "weight"
+  ],
+  "finding_keys": [
+    "finding_id",
+    "entity_id",
+    "kind",
+    "event_seq",
+    "detail"
+  ],
+  "correction_keys": [
+    "correction_id",
+    "action",
+    "target_id",
+    "detail"
+  ],
+  "status_values": [
+    "STABLE",
+    "REVIEW",
+    "OUTLIER"
+  ],
+  "status_rule": "STABLE when no findings or confidence below min_confidence; OUTLIER when confidence >= outlier_threshold and at least one hard feature remains; else REVIEW",
+  "finding_kinds": [
+    "UNDECLARED_COUPLING",
+    "STALE_COUPLING",
+    "CHANNEL_DRIFT",
+    "WEIGHT_STARVE",
+    "MISSING_SITE",
+    "CYCLE_DETECTED",
+    "MUTUAL_COUPLING",
+    "ORPHAN_SITE",
+    "DUPLICATE_SITE",
+    "UNKNOWN_SINK",
+    "SEED_UNREACHABLE",
+    "DEPTH_EXCEEDED",
+    "FANOUT_DEPTH",
+    "REQUIRED_UNREACHABLE"
+  ],
+  "correction_actions": [
+    "ADD_COUPLING",
+    "DROP_COUPLING",
+    "BREAK_CYCLE",
+    "SHIELD_SITE",
+    "REROUTE_PATH",
+    "BOOST_FLUX"
+  ],
+  "encoding": {
+    "compact": true,
+    "no_space_after_colon_or_comma": true,
+    "trailing_newline": true,
+    "use_empty_arrays_not_null": true,
+    "determinism": "byte-identical /app/build/pairing_class_report.json across repeated make run on unchanged fixtures; sort map keys before ranging on every path that affects findings corrections or coupling order including policy override resolution"
+  },
+  "report_structure": {
+    "case_order": "/app/score_cases/manifest.json cases array case_01 through case_20",
+    "sites_sort": "ascending by site_id",
+    "declared_couplings_sort": "ascending by sink_id then source_id",
+    "observed_couplings_sort": "ascending by sink_id then source_id",
+    "findings_sort": "ascending by finding_id lexicographically",
+    "corrections_sort": "ascending by correction_id lexicographically"
+  },
+  "scenario_defaults": {
+    "max_fanout_depth": 2,
+    "max_chain_depth": 3,
+    "require_observed_match": true,
+    "emit_stale_couplings": true,
+    "score_mutual_couplings": true,
+    "min_confidence": 20,
+    "soft_dampen_pct": 40,
+    "outlier_threshold": 40
+  },
+  "policy_resolution": "defaults then top-level case fields then policy_overrides via ResolveCase and ResolveConfidence; only JSON numbers and booleans apply; string overrides are inert; soft_dampen_pct zero is a valid numeric override and must replace the default; policy_overrides must honor min_confidence soft_dampen_pct outlier_threshold max_fanout_depth and max_chain_depth",
+  "replay_sort": {
+    "keys": [
+      "seq",
+      "event_tie_key",
+      "event_id"
+    ],
+    "direction": "ascending",
+    "event_tie_key_rules": {
+      "REGISTER_SITE": "site_id",
+      "DECLARE_COUPLING": "sink_id",
+      "OBSERVE_COUPLING": "sink_id",
+      "SET_SEED": "site_id",
+      "FLAG_CRITICAL": "site_id",
+      "INJECT_FAILURE": "site_id"
+    }
+  },
+  "duplicate_events": {
+    "first_event_id_wins": true,
+    "counter_field": "duplicate_events_skipped",
+    "later_events_do_not_mutate_state": true
+  },
+  "declared_vs_observed": {
+    "undeclared_coupling": "OBSERVE_COUPLING with no DECLARE_COUPLING for same sink_id and source_id",
+    "stale_coupling": "DECLARE_COUPLING with no OBSERVE_COUPLING for same sink_id and source_id when emit_stale_couplings true",
+    "channel_drift": "matching pair where declare channel differs from observe channel; detail format is declare>observe with a literal greater-than between channel names",
+    "flux_starve": "WEIGHT_STARVE when required declared coupling has observe weight equal to zero; entity_id sink_id; detail source_id; event_seq is observe seq; correction BOOST_FLUX"
+  },
+  "live_observed_graph": {
+    "cycle_edges": "CYCLE_DETECTED uses every observed coupling including weight zero",
+    "mutual_and_fanout_edges": "mutual pairing and fanout reverse BFS use only observed couplings with weight strictly greater than zero",
+    "rule": "cycle graph and live graph are intentionally different edge sets"
+  },
+  "cycle_detected": {
+    "search": "strongly connected components on all observed directed couplings including zero-weight; emit only when the extracted cycle has at least three distinct sites; two-site loops are not CYCLE_DETECTED",
+    "detail": "lexicographically smallest rotation of cycle joined with greater-than sign including return to start",
+    "entity_id": "first site in the rotated cycle detail before the first greater-than",
+    "event_seq": "audit_seq equals max event seq plus one"
+  },
+  "mutual_coupling": {
+    "rule": "when score_mutual_couplings true and live observed couplings exist in both directions between A and B with weight strictly greater than zero each way",
+    "entity_id": "lexicographically smaller site_id",
+    "detail": "lexicographically larger site_id",
+    "suppress_when": "omit MUTUAL_COUPLING when both sites appear in any CYCLE_DETECTED detail; a site appearing alone in a cycle does not suppress",
+    "event_seq": "audit_seq"
+  },
+  "fanout_and_failure": {
+    "fanout_depth": "from each INJECT_FAILURE site BFS on the reverse of weight-greater-than-zero observed couplings only; zero-weight observed edges are absent so they cut reverse paths; emit when max hop is strictly greater than max_fanout_depth",
+    "required_unreachable": "after removing failed sites if seed is set and a required declared source is unreachable from seed via remaining declared couplings",
+    "seed_unreachable": "critical site with no path from seed on all declared couplings",
+    "depth_exceeded": "longest simple path from seed on required declared couplings only; optional declared edges never lengthen depth; emit when depth is strictly greater than max_chain_depth"
+  },
+  "post_audit": {
+    "audit_seq": "max event seq plus one",
+    "kinds_using_audit_seq": [
+      "CYCLE_DETECTED",
+      "MUTUAL_COUPLING",
+      "ORPHAN_SITE",
+      "SEED_UNREACHABLE",
+      "DEPTH_EXCEEDED",
+      "FANOUT_DEPTH",
+      "REQUIRED_UNREACHABLE"
+    ],
+    "orphan_site": "registered site that never appears as sink or source in any declare or observe coupling emit once at audit_seq"
+  },
+  "finding_id": {
+    "format": "case_id double colon entity_id double colon event_seq as four decimal digits",
+    "separator": "::",
+    "pattern": "^.+::.+::\\d{4}$",
+    "parts": 3,
+    "never_include": "kind or detail must not appear inside finding_id",
+    "event_seq_source": "seq field of the triggering replay event not replay index; post-audit findings use audit_seq"
+  },
+  "correction_id": {
+    "format": "case_id double colon action double colon target_id",
+    "mapping": {
+      "UNDECLARED_COUPLING": "ADD_COUPLING target sink_id detail source_id",
+      "STALE_COUPLING": "DROP_COUPLING target sink_id detail source_id",
+      "CYCLE_DETECTED": "BREAK_CYCLE target cycle entity_id detail full cycle string",
+      "FANOUT_DEPTH": "SHIELD_SITE target failed site_id detail hop count as decimal",
+      "SEED_UNREACHABLE": "REROUTE_PATH target critical site_id detail seed_id",
+      "REQUIRED_UNREACHABLE": "REROUTE_PATH target source_id detail seed_id",
+      "WEIGHT_STARVE": "BOOST_FLUX target sink_id detail source_id"
+    }
+  },
+  "finding_entity_detail": {
+    "UNDECLARED_COUPLING": "entity_id is sink_id; detail is source_id",
+    "STALE_COUPLING": "entity_id is sink_id; detail is source_id",
+    "CHANNEL_DRIFT": "entity_id is sink_id; detail is declare_channel greater-than observe_channel",
+    "WEIGHT_STARVE": "entity_id is sink_id; detail is source_id",
+    "MISSING_SITE": "entity_id is missing site_id; detail is event kind",
+    "CYCLE_DETECTED": "entity_id is first node of rotated cycle; detail is full cycle string",
+    "MUTUAL_COUPLING": "entity_id is smaller site_id; detail is larger site_id",
+    "ORPHAN_SITE": "entity_id is site_id; detail empty string",
+    "DUPLICATE_SITE": "entity_id is site_id; detail empty string",
+    "UNKNOWN_SINK": "entity_id is sink_id; detail is source_id",
+    "SEED_UNREACHABLE": "entity_id is critical site_id; detail is seed_id",
+    "DEPTH_EXCEEDED": "entity_id is deepest site_id; detail is depth as decimal",
+    "FANOUT_DEPTH": "entity_id is failed site_id; detail is max hop reached as decimal",
+    "REQUIRED_UNREACHABLE": "entity_id is unreachable required source_id; detail is seed_id"
+  },
+  "hard_finding_kinds": [
+    "CYCLE_DETECTED",
+    "FANOUT_DEPTH",
+    "DEPTH_EXCEEDED",
+    "REQUIRED_UNREACHABLE",
+    "SEED_UNREACHABLE",
+    "WEIGHT_STARVE",
+    "CHANNEL_DRIFT"
+  ],
+  "soft_finding_kinds": [
+    "MUTUAL_COUPLING",
+    "STALE_COUPLING",
+    "UNDECLARED_COUPLING",
+    "ORPHAN_SITE",
+    "DUPLICATE_SITE",
+    "UNKNOWN_SINK",
+    "MISSING_SITE"
+  ],
+  "feature_weights": {
+    "CYCLE_DETECTED": 40,
+    "FANOUT_DEPTH": 34,
+    "DEPTH_EXCEEDED": 34,
+    "REQUIRED_UNREACHABLE": 34,
+    "SEED_UNREACHABLE": 34,
+    "WEIGHT_STARVE": 28,
+    "CHANNEL_DRIFT": 28,
+    "MUTUAL_COUPLING": 12,
+    "STALE_COUPLING": 12,
+    "UNDECLARED_COUPLING": 12,
+    "ORPHAN_SITE": 55,
+    "DUPLICATE_SITE": 12,
+    "UNKNOWN_SINK": 12,
+    "MISSING_SITE": 12
+  },
+  "combo_bonus": {
+    "kinds": [
+      "CHANNEL_DRIFT",
+      "WEIGHT_STARVE"
+    ],
+    "points": 10
+  },
+  "evidence_stack_bonus": {
+    "min_hard": 3,
+    "points": 12,
+    "count": "distinct hard kinds not raw finding count"
+  },
+  "mixed_evidence_tax": {
+    "points": 6
+  },
+  "confidence": {
+    "hard_sum": "sum feature_weights of hard findings at full value",
+    "soft_sum": "sum feature_weights of soft findings then multiply by soft_dampen_pct and integer divide by 100; never dampen hard weights",
+    "base": "hard_sum plus dampened soft_sum",
+    "combo": "after base add combo_bonus.points when both CHANNEL_DRIFT and WEIGHT_STARVE present",
+    "evidence_stack": "after combo add evidence_stack_bonus.points when distinct hard kinds is at least evidence_stack_bonus.min_hard",
+    "mixed_tax": "after evidence_stack subtract mixed_evidence_tax.points when hardCount>=1 and softCount>=1 using finding counts not dampened sums; soft_dampen_pct zero still taxes",
+    "cap": "clamp confidence to 100 after bonuses and tax; never below 0"
+  },
+  "verdict_rule": {
+    "fp_suppress": "if confidence less than min_confidence set confidence 0 and status STABLE; retain findings for feature audit",
+    "stable": "no findings or after fp suppress",
+    "outlier": "confidence greater than or equal to outlier_threshold AND at least one hard finding kind remains; soft only never OUTLIER even when confidence is at or above outlier_threshold",
+    "review": "otherwise when findings remain"
+  },
+  "policy_overrides_keys": [
+    "max_fanout_depth",
+    "max_chain_depth",
+    "require_observed_match",
+    "emit_stale_couplings",
+    "score_mutual_couplings",
+    "min_confidence",
+    "soft_dampen_pct",
+    "outlier_threshold"
+  ]
+}

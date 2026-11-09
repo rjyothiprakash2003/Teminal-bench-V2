@@ -1,0 +1,83 @@
+{
+  "case_id": "case_05",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "A"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "B"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": false,
+      "site_id": "C"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "A",
+      "source_id": "C",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "C",
+      "source_id": "B",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "B",
+      "source_id": "A",
+      "channel": "heat",
+      "required": false
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "A",
+      "source_id": "C",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 8,
+      "event_id": "e08",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "C",
+      "source_id": "B",
+      "channel": "heat",
+      "weight": 1
+    },
+    {
+      "seq": 9,
+      "event_id": "e09",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "B",
+      "source_id": "A",
+      "channel": "heat",
+      "weight": 1
+    }
+  ]
+}

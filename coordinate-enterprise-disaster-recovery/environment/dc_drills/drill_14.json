@@ -1,0 +1,134 @@
+{
+  "drill_id": "drill_14",
+  "health_quorum_pct": 50,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "d14e01",
+      "kind": "REGISTER_DATACENTER",
+      "datacenter_id": "DC1",
+      "region_class": "primary",
+      "capacity_units": 5
+    },
+    {
+      "seq": 2,
+      "event_id": "d14e02",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S_DB",
+      "service_id": "svc_db",
+      "checksum": "c1",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 3,
+      "event_id": "d14e03",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S_API",
+      "service_id": "svc_api",
+      "checksum": "c2",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 4,
+      "event_id": "d14e04",
+      "kind": "DECLARE_SNAPSHOT",
+      "snapshot_id": "S_WEB",
+      "service_id": "svc_web",
+      "checksum": "c3",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "lag_sec": 10
+    },
+    {
+      "seq": 5,
+      "event_id": "d14e05",
+      "kind": "LINK_DEPENDENCY",
+      "from_service": "svc_api",
+      "to_service": "svc_db"
+    },
+    {
+      "seq": 6,
+      "event_id": "d14e06",
+      "kind": "LINK_DEPENDENCY",
+      "from_service": "svc_web",
+      "to_service": "svc_api"
+    },
+    {
+      "seq": 7,
+      "event_id": "d14e07",
+      "kind": "START_WAVE",
+      "wave_id": "W1",
+      "wave_index": 1,
+      "max_concurrent": 3
+    },
+    {
+      "seq": 8,
+      "event_id": "d14e08",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "svc_db",
+      "snapshot_id": "S_DB",
+      "checksum": "c1",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:00:00Z",
+      "finished_at": "2026-07-01T12:05:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 9,
+      "event_id": "d14e09",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "svc_api",
+      "snapshot_id": "S_API",
+      "checksum": "c2",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:05:00Z",
+      "finished_at": "2026-07-01T12:10:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 10,
+      "event_id": "d14e10",
+      "kind": "RESTORE_SERVICE",
+      "service_id": "svc_web",
+      "snapshot_id": "S_WEB",
+      "checksum": "c3",
+      "wave_id": "W1",
+      "started_at": "2026-07-01T12:10:00Z",
+      "finished_at": "2026-07-01T12:15:00Z",
+      "replica_count": 1
+    },
+    {
+      "seq": 11,
+      "event_id": "d14e11",
+      "kind": "PROBE_HEALTH",
+      "probe_id": "P1",
+      "service_id": "svc_db",
+      "healthy": true,
+      "critical": false
+    },
+    {
+      "seq": 12,
+      "event_id": "d14e12",
+      "kind": "PROBE_HEALTH",
+      "probe_id": "P2",
+      "service_id": "svc_api",
+      "healthy": true,
+      "critical": false
+    },
+    {
+      "seq": 13,
+      "event_id": "d14e13",
+      "kind": "EXECUTE_ROLLBACK",
+      "service_id": "svc_db",
+      "reason": "db_fail"
+    },
+    {
+      "seq": 14,
+      "event_id": "d14e14",
+      "kind": "CLOSE_DRILL",
+      "closed_at": "2026-07-01T12:15:00Z"
+    }
+  ],
+  "max_wave_capacity": 5
+}

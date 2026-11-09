@@ -1,0 +1,71 @@
+{
+  "case_id": "case_01",
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SITE",
+      "tier": "boundary",
+      "critical": false,
+      "site_id": "S0"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "REGISTER_SITE",
+      "tier": "bulk",
+      "critical": true,
+      "site_id": "N1"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "REGISTER_SITE",
+      "tier": "reservoir",
+      "critical": false,
+      "site_id": "N2"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "SET_SEED",
+      "site_id": "S0"
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "S0",
+      "source_id": "N1",
+      "channel": "heat",
+      "required": true
+    },
+    {
+      "seq": 6,
+      "event_id": "e06",
+      "kind": "DECLARE_COUPLING",
+      "sink_id": "N1",
+      "source_id": "N2",
+      "channel": "mass",
+      "required": true
+    },
+    {
+      "seq": 7,
+      "event_id": "e07",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "S0",
+      "source_id": "N1",
+      "channel": "heat",
+      "weight": 100
+    },
+    {
+      "seq": 8,
+      "event_id": "e08",
+      "kind": "OBSERVE_COUPLING",
+      "sink_id": "N1",
+      "source_id": "N2",
+      "channel": "mass",
+      "weight": 200
+    }
+  ]
+}

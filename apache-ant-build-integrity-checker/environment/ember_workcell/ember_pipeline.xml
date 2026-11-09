@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ember-workcell" default="audit">
+    <property name="release.name" value="fallback-release"/>
+    <property name="archive.name" value="${release.name}.jar"/>
+    <property name="artifact.path" value="dist/${archive.name}"/>
+    <property name="build.epoch" value="946684800"/>
+
+    <target name="prepare"/>
+    <target name="generate" depends="prepare"/>
+    <target name="compile" depends="generate"/>
+    <target name="resources" depends="prepare"/>
+    <target name="package" depends="compile, resources"/>
+    <target name="checksums" depends="package"/>
+    <target name="audit" depends="checksums"/>
+</project>

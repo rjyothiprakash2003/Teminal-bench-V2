@@ -1,0 +1,23 @@
+{
+  "lx": 1.0,
+  "delta_u": 1.0,
+  "amplitude": 0.0001,
+  "ri_crit": 0.25,
+  "cfl_max": 0.9,
+  "growth_stable_cap": 0.001,
+  "growth_tol": 0.2,
+  "mass_tol": 1e-09,
+  "mom_tol": 1.0,
+  "density_floor": 1e-12,
+  "min_steps": 8,
+  "policy_overrides": {},
+  "case_id": "case_01",
+  "nx": 64,
+  "n2": 4.0,
+  "delta": 0.3,
+  "t_end": 0.4,
+  "cfl": 0.35,
+  "scheme_primary": "upwind",
+  "scheme_secondary": "lax_friedrichs",
+  "solver_agree_tol": 1.0
+}

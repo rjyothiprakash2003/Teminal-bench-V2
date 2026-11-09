@@ -1,0 +1,132 @@
+{
+  "property_layers": [
+    {
+      "source": "command-line",
+      "values": {
+        "release.name": "ember-core"
+      }
+    },
+    {
+      "source": "property-file",
+      "values": {
+        "archive.name": "${release.name}.jar"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "dist/ember-core.jar",
+      "producer": "package",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "sidecar_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ],
+  "incremental": [
+    {
+      "target": "compile",
+      "input_before": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "input_after": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "output_before": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "output_after": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "executed": false
+    },
+    {
+      "target": "compile",
+      "input_before": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "input_after": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "output_before": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "output_after": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "executed": true
+    },
+    {
+      "target": "package",
+      "input_before": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "input_after": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "output_before": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "output_after": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "executed": false
+    },
+    {
+      "target": "package",
+      "input_before": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "input_after": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "output_before": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "output_after": "9999999999999999999999999999999999999999999999999999999999999999",
+      "executed": true
+    }
+  ],
+  "packages": [
+    {
+      "os": "linux",
+      "archive_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+      "entries": [
+        {
+          "path": "META-INF/MANIFEST.MF",
+          "sha256": "1212121212121212121212121212121212121212121212121212121212121212",
+          "mode": "0644",
+          "mtime": 946684800
+        },
+        {
+          "path": "config/default.properties",
+          "sha256": "3434343434343434343434343434343434343434343434343434343434343434",
+          "mode": "0644",
+          "mtime": 946684800
+        },
+        {
+          "path": "ember/Main.class",
+          "sha256": "5656565656565656565656565656565656565656565656565656565656565656",
+          "mode": "0644",
+          "mtime": 946684800
+        }
+      ]
+    },
+    {
+      "os": "macos",
+      "archive_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+      "entries": [
+        {
+          "path": "META-INF/MANIFEST.MF",
+          "sha256": "1212121212121212121212121212121212121212121212121212121212121212",
+          "mode": "0644",
+          "mtime": 946684800
+        },
+        {
+          "path": "config/default.properties",
+          "sha256": "3434343434343434343434343434343434343434343434343434343434343434",
+          "mode": "0644",
+          "mtime": 946684800
+        },
+        {
+          "path": "ember/Main.class",
+          "sha256": "5656565656565656565656565656565656565656565656565656565656565656",
+          "mode": "0644",
+          "mtime": 946684800
+        }
+      ]
+    },
+    {
+      "os": "windows",
+      "archive_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+      "entries": [
+        {
+          "path": "META-INF/MANIFEST.MF",
+          "sha256": "1212121212121212121212121212121212121212121212121212121212121212",
+          "mode": "0644",
+          "mtime": 946684800
+        },
+        {
+          "path": "config/default.properties",
+          "sha256": "3434343434343434343434343434343434343434343434343434343434343434",
+          "mode": "0644",
+          "mtime": 946684800
+        },
+        {
+          "path": "ember/Main.class",
+          "sha256": "5656565656565656565656565656565656565656565656565656565656565656",
+          "mode": "0644",
+          "mtime": 946684800
+        }
+      ]
+    }
+  ]
+}

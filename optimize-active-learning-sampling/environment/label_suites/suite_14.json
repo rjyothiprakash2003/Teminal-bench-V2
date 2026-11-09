@@ -1,0 +1,39 @@
+{
+  "suite_id": "suite_14",
+  "seed_accuracy_bps": 5000,
+  "min_confidence_n": 0,
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e01",
+      "kind": "REGISTER_SAMPLE",
+      "sample_id": "P1"
+    },
+    {
+      "seq": 2,
+      "event_id": "e02",
+      "kind": "SEED_LABEL",
+      "sample_id": "P1"
+    },
+    {
+      "seq": 3,
+      "event_id": "e03",
+      "kind": "SET_STRATEGY",
+      "strategy": "uncertainty"
+    },
+    {
+      "seq": 4,
+      "event_id": "e04",
+      "kind": "SET_STRATEGY",
+      "strategy": "diversity"
+    },
+    {
+      "seq": 5,
+      "event_id": "e05",
+      "kind": "PICK_BATCH",
+      "round_id": "1",
+      "round": 1,
+      "batch_size": 1
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "suite_id": "suite_15",
+  "seed_accuracy_bps": 5000,
+  "max_score_age_rounds": 0,
+  "uncertainty_weight": 90,
+  "diversity_weight": 10,
+  "cost_per_label_milli": 999,
+  "cost_per_score_milli": 999,
+  "confidence_z2": 9,
+  "policy_overrides": {
+    "max_score_age_rounds": 3,
+    "uncertainty_weight": 20,
+    "diversity_weight": 80,
+    "target_accuracy_bps": 8100,
+    "min_confidence_n": 1,
+    "cost_per_label_milli": 120,
+    "cost_per_score_milli": 7,
+    "confidence_z2": 2
+  },
+  "events": [
+    {"seq": 1, "event_id": "e01", "kind": "REGISTER_SAMPLE", "sample_id": "P0"},
+    {"seq": 2, "event_id": "e02", "kind": "REGISTER_SAMPLE", "sample_id": "P1"},
+    {"seq": 3, "event_id": "e03", "kind": "REGISTER_SAMPLE", "sample_id": "P2"},
+    {"seq": 4, "event_id": "e04", "kind": "SEED_LABEL", "sample_id": "P0"},
+    {"seq": 5, "event_id": "e05", "kind": "SCORE_UNCERTAINTY", "sample_id": "P1", "uncertainty": 95, "round": 1},
+    {"seq": 6, "event_id": "e06", "kind": "SCORE_DIVERSITY", "sample_id": "P1", "diversity": 10, "round": 1},
+    {"seq": 7, "event_id": "e07", "kind": "SCORE_UNCERTAINTY", "sample_id": "P2", "uncertainty": 40, "round": 1},
+    {"seq": 8, "event_id": "e08", "kind": "SCORE_DIVERSITY", "sample_id": "P2", "diversity": 90, "round": 1},
+    {"seq": 9, "event_id": "e09", "kind": "SET_STRATEGY", "strategy": "hybrid"},
+    {"seq": 10, "event_id": "e10", "kind": "PICK_BATCH", "round_id": "3", "round": 3, "batch_size": 1},
+    {"seq": 11, "event_id": "e11", "kind": "RECORD_PROBE", "round_id": "3", "round": 3, "accuracy_bps": 8100}
+  ]
+}
